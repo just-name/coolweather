@@ -33,11 +33,11 @@ public class CoolWeatherDB {
 	 */
 	private CoolWeatherDB(Context context) {
 		CoolWeatherOpenHelper dbHelper = new CoolWeatherOpenHelper(context, DB_NAME, null, VERSION);
-		db = dbHelper.getWritableDatabase();
+		db = dbHelper.getWritableDatabase();	// 创建数据库,返回SQLiteDatabase对象db
 	}
 	
 	/**
-	 * 获取CoolWeatherDB的实例
+	 * 获取CoolWeatherDB的实例; 保证全局范围内只会有一个CoolWeatherDB实例
 	 */
 	public synchronized static CoolWeatherDB getInstance(Context context) {
 		if (coolWeatherDB == null) {
