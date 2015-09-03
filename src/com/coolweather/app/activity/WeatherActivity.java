@@ -92,6 +92,7 @@ public class WeatherActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		switch(v.getId()) {
 		case R.id.switch_city:
+			// 如果直接跳转到ChooseAreaActivity，会立刻又跳转回来，因此在Intent中加入一个from_weather_activity标志位
 			Intent intent = new Intent(this, ChooseAreaActivity.class);
 			intent.putExtra("from_weather_activity", true);
 			startActivity(intent);
@@ -99,9 +100,11 @@ public class WeatherActivity extends Activity implements OnClickListener {
 			break;
 		case R.id.refresh_weather:
 			publishText.setText("同步中...");
+			// 首先从SharedPreference文件中读取天气代号
 			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 			String weatherCode = prefs.getString("weather_code", "");
 			if (!TextUtils.isEmpty(weatherCode)) {
+				//  再更新天气
 				queryWeatherInfo(weatherCode);
 			}
 			break;
